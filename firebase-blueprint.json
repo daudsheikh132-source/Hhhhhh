@@ -1,0 +1,247 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile, language, theme, voice, and memory settings for SoulMate AI.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Authenticated Firebase UID matching the document ID."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name shown in profile and greetings."
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address from Google Sign-In."
+        },
+        "preferredLanguage": {
+          "type": "string",
+          "enum": ["en", "bn"],
+          "description": "Preferred UI and AI response language (English or Bengali)."
+        },
+        "selectedPersonality": {
+          "type": "string",
+          "enum": ["FRIENDLY", "FUNNY", "TEACHER", "CREATIVE", "SUPPORT"],
+          "description": "Active AI companion personality mode."
+        },
+        "memoryEnabled": {
+          "type": "boolean",
+          "description": "Whether user-controlled AI memory is active."
+        },
+        "voiceSpeechRate": {
+          "type": "number",
+          "description": "Text-to-speech playback rate (0.5 to 2.0)."
+        },
+        "voiceAutoSpeak": {
+          "type": "boolean",
+          "description": "Whether AI responses are automatically spoken in voice mode."
+        },
+        "themeMode": {
+          "type": "string",
+          "enum": ["DARK_NAVY", "SYSTEM", "LIGHT"],
+          "description": "Application theme preference."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation server timestamp (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update server timestamp (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "displayName",
+        "preferredLanguage",
+        "selectedPersonality",
+        "memoryEnabled",
+        "voiceSpeechRate",
+        "voiceAutoSpeak",
+        "themeMode",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Conversation": {
+      "title": "Conversation",
+      "description": "Persistent multi-turn AI chat conversation thread.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner Firebase UID."
+        },
+        "title": {
+          "type": "string",
+          "description": "User-editable conversation title."
+        },
+        "personality": {
+          "type": "string",
+          "enum": ["FRIENDLY", "FUNNY", "TEACHER", "CREATIVE", "SUPPORT"],
+          "description": "Personality mode for this conversation."
+        },
+        "language": {
+          "type": "string",
+          "enum": ["en", "bn"],
+          "description": "Primary language code for this conversation."
+        },
+        "lastMessagePreview": {
+          "type": "string",
+          "description": "Short preview of the latest message."
+        },
+        "messageCount": {
+          "type": "integer",
+          "description": "Number of messages in the conversation."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation server timestamp (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last activity server timestamp (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "title",
+        "personality",
+        "language",
+        "lastMessagePreview",
+        "messageCount",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Individual user or AI model message within a conversation.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner Firebase UID."
+        },
+        "conversationId": {
+          "type": "string",
+          "description": "Parent conversation document ID."
+        },
+        "role": {
+          "type": "string",
+          "enum": ["user", "model"],
+          "description": "Message sender role."
+        },
+        "content": {
+          "type": "string",
+          "description": "Message text body."
+        },
+        "personality": {
+          "type": "string",
+          "enum": ["FRIENDLY", "FUNNY", "TEACHER", "CREATIVE", "SUPPORT"],
+          "description": "Personality active when message was created."
+        },
+        "hasImage": {
+          "type": "boolean",
+          "description": "Whether the message included image attachments."
+        },
+        "imageCount": {
+          "type": "integer",
+          "description": "Number of image attachments (0-5)."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation server timestamp (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "conversationId",
+        "role",
+        "content",
+        "personality",
+        "hasImage",
+        "imageCount",
+        "createdAt"
+      ]
+    },
+    "MemoryItem": {
+      "title": "MemoryItem",
+      "description": "User-controlled persistent AI memory note.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner Firebase UID."
+        },
+        "title": {
+          "type": "string",
+          "description": "Short label for the memory."
+        },
+        "content": {
+          "type": "string",
+          "description": "Memory fact or preference remembered for future conversations."
+        },
+        "category": {
+          "type": "string",
+          "enum": ["PREFERENCE", "CONTEXT", "PERSONAL", "GOAL"],
+          "description": "Memory category."
+        },
+        "sensitive": {
+          "type": "boolean",
+          "description": "Whether this memory holds sensitive personal details requiring explicit consent."
+        },
+        "approvedByUser": {
+          "type": "boolean",
+          "description": "Explicit user approval flag."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation server timestamp (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update server timestamp (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": [
+        "userId",
+        "title",
+        "content",
+        "category",
+        "sensitive",
+        "approvedByUser",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Authenticated user's profile and SoulMate AI preferences."
+    },
+    "/users/{userId}/conversations/{conversationId}": {
+      "schema": { "$ref": "#/entities/Conversation" },
+      "description": "User's saved AI chat conversations."
+    },
+    "/users/{userId}/conversations/{conversationId}/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/ChatMessage" },
+      "description": "Ordered messages belonging to a conversation."
+    },
+    "/users/{userId}/memories/{memoryId}": {
+      "schema": { "$ref": "#/entities/MemoryItem" },
+      "description": "User-approved persistent AI memories."
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "SoulMate AI",
+  "description": "Your Smart AI Companion — multimodal AI assistant with streaming chat, image understanding, voice conversation, user-controlled memory, and AI image generation. Created by Daud.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
